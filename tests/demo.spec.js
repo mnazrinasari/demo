@@ -1,91 +1,88 @@
 import { test, expect } from '@playwright/test';
+import { LoginPage } from '../pages/loginPage';
+import { ProductPage } from '../pages/productPage';
+import { CartPage } from '../pages/cartPage';
+import { CheckoutPage } from '../pages/checkoutPage';
+import { OrderReviewPage } from '../pages/orderreviewPage';
+import { ThankYouPage } from '../pages/thankyouPage';
 
 test('1 - Login - Valid User', async ({page}) =>
     {
-    
+        const loginPage = new LoginPage(page);
         //go to url
-        await page.goto("https://www.saucedemo.com/v1/");
+        const sourceURL = "https://www.saucedemo.com/v1/index.html";
+        await loginPage.goTo(sourceURL);        
         //login
-        await page.locator("[data-test='username']").fill("standard_user");
-        await page.locator("[data-test='password']").fill("secret_sauce");
-        await page.locator("[id='login-button']").click();
-        //verify if user is logged-in
-        console.log(await page.url());
-        expect(await page.url()).toBe("https://www.saucedemo.com/v1/inventory.html");
-    
+        const emails = "standard_user";
+        const passwords = "secret_sauce";
+        await loginPage.validLogin(emails, passwords);
     })
 
 test('2 - Login - Locked out user', async ({page}) =>
     {
-    
+        
+        const loginPage = new LoginPage(page);
         //go to url
-        await page.goto("https://www.saucedemo.com/v1/");
+        const sourceURL = "https://www.saucedemo.com/v1/index.html"
+        await loginPage.goTo(sourceURL);
         //login
-        await page.locator("[data-test='username']").fill("locked_out_user");
-        await page.locator("[data-test='password']").fill("secret_sauce");
-        await page.locator("[id='login-button']").click();
+        const emails = "locked_out_user";
+        const passwords = "secret_sauce";
+        await loginPage.validLogin(emails, passwords);
         //verify error for locked out user
-        const expectedError = "Sorry, this user has been locked out.";
-        const error = await page.locator("[data-test='error']");
-        await expect(error).toContainText(expectedError);
-        //printing error message
-        console.log(await error.textContent());
+        await loginPage.loginNotSuceed;
+        console.log(await loginPage.loginNotSuceed());
+    
+
     
     })
 
-test('3 - Complete Order Flow - Single Product', async ({page}) =>
+test.only('3 - Complete Order Flow - Single Product', async ({page}) =>
 {
-
+    const loginPage = new LoginPage(page);
     //go to url
-    await page.goto("https://www.saucedemo.com/v1/");
+    const sourceURL = "https://www.saucedemo.com/v1/index.html";
+    await loginPage.goTo(sourceURL);
     //login
-    await page.locator("[data-test='username']").fill("standard_user");
-    await page.locator("[data-test='password']").fill("secret_sauce");
-    await page.locator("[id='login-button']").click();
-    //logged-in
-    await page.waitForLoadState('networkidle');
-    await expect(page.locator("[class='product_label']")).toContainText("Products");
-    //selecting product
+    const emails = "standard_user";
+    const passwords = "secret_sauce";
+    await loginPage.validLogin(emails, passwords);
 
-    const products = await page.locator("[class='inventory_item']")
-    const count = await products.count();
+    //selecting product in PDP
+    const productPage = new ProductPage(page);
     const productName = "Sauce Labs Bolt T-Shirt";
-    for(let i=0; i<count; i++)
-        {
-            if(await products.nth(i).locator("div >> a >> div").textContent() === productName){
-                await products.nth(i).locator("button").click();
-                break;
-            }
-        }
+    await productPage.selectProduct(productName);
 
-    //verify product added to cart
-    const badgeIcon = await page.locator("[class*='cart_badge']");
-    await expect(badgeIcon).toContainText("1");
-    await badgeIcon.click();
-    //verify product is in cart page
-    const productCheckedOut = await page.locator("[class='inventory_item_name']");
-    await expect(productCheckedOut).toContainText(productName);
-    console.log(await productCheckedOut.textContent()); //priting checkout item
-    //checkout product
-    await page.locator("[class*='checkout_button']").click();
-    //fill up checkout information
-    await page.locator("[id='first-name']").fill("Foo");
-    await page.locator("[id='last-name']").fill("bar");
-    await page.locator("[id='postal-code']").fill("00000");
-    await page.locator("[type='submit']").click();
+    //verify product added to cart in PDP
+    await productPage.verifyItemQuantity();
+    await productPage.addingCart();
+
+    //checkingout in cart page
+    const cartPage = new CartPage(page);
+    await cartPage.verifyCart(productName);
+    console.log(await cartPage.getCartList());
+    await cartPage.checkingOut();
+
+
+    
+    //placing order in checkout page
+    const checkoutPage = new CheckoutPage(page);
+    const firstName = "Foo";
+    const lastName = "Bar"
+    const postalCode = "11111"
+    await checkoutPage.completeShipping(firstName, lastName, postalCode);
+    await checkoutPage.submitOrder();
+
 
     //verify product in order overview
-    const orderCompleted = await page.locator("[class='inventory_item_name']");
-    await expect(orderCompleted).toContainText(productName);
-    const refNumber = await page.locator("[class='summary_value_label']").nth(0).textContent();
-    //printing order reference number
-    console.log(refNumber);
-    //proceed to finish
-    await page.locator("[class='btn_action cart_button']").click();
-    //verify order success
+    const orderReviewPage = new OrderReviewPage(page);
+    await orderReviewPage.verifyOrderComplete(productName);
+    console.log(await orderReviewPage.verifyReferenceNumber());
+    await orderReviewPage.completeOrder();
 
-    const orderSuccess = page.locator("[class='complete-header']");
-    await expect(orderSuccess).toContainText("THANK YOU");
+    //verify order success
+    const thankyouPage = new ThankYouPage(page);
+    await thankyouPage.verifyThankYouMessage();
 
    
    //pause
@@ -93,7 +90,7 @@ test('3 - Complete Order Flow - Single Product', async ({page}) =>
 
 
 
-})
+    })
 
 test('4 - Cart - Multiple Products(First 3 products)', async ({page}) =>
     {
@@ -196,7 +193,7 @@ test('5 - Cart - Multiple Products(Fixed Products)', async ({page}) =>
     
     })
 
-test.only('6 - Cart - Total Sum of the Order in Cart)', async ({page}) =>
+test('6 - Cart - Total Sum of the Order in Cart)', async ({page}) =>
     {
     
         //go to url
