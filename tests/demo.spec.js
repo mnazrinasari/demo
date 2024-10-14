@@ -1,14 +1,10 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/loginPage';
-import { ProductPage } from '../pages/productPage';
-import { CartPage } from '../pages/cartPage';
-import { CheckoutPage } from '../pages/checkoutPage';
-import { OrderReviewPage } from '../pages/orderreviewPage';
-import { ThankYouPage } from '../pages/thankyouPage';
+import { POManager } from '../pages/POManager';
 
 test('1 - Login - Valid User', async ({page}) =>
-    {
-        const loginPage = new LoginPage(page);
+    {   
+        const pomanager = new POManager(page);
+        const loginPage = pomanager.getLoginPage();
         //go to url
         const sourceURL = "https://www.saucedemo.com/v1/index.html";
         await loginPage.goTo(sourceURL);        
@@ -20,8 +16,8 @@ test('1 - Login - Valid User', async ({page}) =>
 
 test('2 - Login - Locked out user', async ({page}) =>
     {
-        
-        const loginPage = new LoginPage(page);
+        const pomanager = new POManager(page);
+        const loginPage = pomanager.getLoginPage();
         //go to url
         const sourceURL = "https://www.saucedemo.com/v1/index.html"
         await loginPage.goTo(sourceURL);
@@ -37,9 +33,10 @@ test('2 - Login - Locked out user', async ({page}) =>
     
     })
 
-test.only('3 - Complete Order Flow - Single Product', async ({page}) =>
+test('3 - Complete Order Flow - Single Product', async ({page}) =>
 {
-    const loginPage = new LoginPage(page);
+    const pomanager = new POManager(page);
+    const loginPage = pomanager.getLoginPage();
     //go to url
     const sourceURL = "https://www.saucedemo.com/v1/index.html";
     await loginPage.goTo(sourceURL);
@@ -49,24 +46,26 @@ test.only('3 - Complete Order Flow - Single Product', async ({page}) =>
     await loginPage.validLogin(emails, passwords);
 
     //selecting product in PDP
-    const productPage = new ProductPage(page);
-    const productName = "Sauce Labs Bolt T-Shirt";
-    await productPage.selectProduct(productName);
+    const productPage = pomanager.getProductPage();
+    const selectproductName = "Sauce Labs Bolt T-Shirt";
+    const countType = "allProducts";
+    await productPage.selectProducts(selectproductName);
 
     //verify product added to cart in PDP
-    await productPage.verifyItemQuantity();
+    await productPage.verifyItemQuantity(countType);
     await productPage.addingCart();
 
     //checkingout in cart page
-    const cartPage = new CartPage(page);
-    await cartPage.verifyCart(productName);
+    const cartPage = pomanager.getCartPage();
+    const productName = await cartPage.getCartList(countType);
+    await cartPage.verifyCart(productName, countType);
     console.log(await cartPage.getCartList());
     await cartPage.checkingOut();
 
 
     
     //placing order in checkout page
-    const checkoutPage = new CheckoutPage(page);
+    const checkoutPage = pomanager.getCheckoutPage();
     const firstName = "Foo";
     const lastName = "Bar"
     const postalCode = "11111"
@@ -75,20 +74,14 @@ test.only('3 - Complete Order Flow - Single Product', async ({page}) =>
 
 
     //verify product in order overview
-    const orderReviewPage = new OrderReviewPage(page);
-    await orderReviewPage.verifyOrderComplete(productName);
+    const orderReviewPage = pomanager.getOrderReviewPage();
+    await orderReviewPage.verifyOrderComplete(productName, countType);
     console.log(await orderReviewPage.verifyReferenceNumber());
     await orderReviewPage.completeOrder();
 
     //verify order success
-    const thankyouPage = new ThankYouPage(page);
+    const thankyouPage = pomanager.getThankYouPage();
     await thankyouPage.verifyThankYouMessage();
-
-   
-   //pause
-    // await page.pause();
-
-
 
     })
 
@@ -96,98 +89,115 @@ test('4 - Cart - Multiple Products(First 3 products)', async ({page}) =>
     {
     
         //go to url
-        await page.goto("https://www.saucedemo.com/v1/");
+        const pomanager = new POManager(page);
+        
+        const loginPage = pomanager.getLoginPage();
+        //go to url
+        const sourceURL = "https://www.saucedemo.com/v1/index.html";
+        await loginPage.goTo(sourceURL);
+        const username = "standard_user";
+        const password = "secret_sauce";
+        await loginPage.validLogin(username, password);
         //login
-        await page.locator("[data-test='username']").fill("standard_user");
-        await page.locator("[data-test='password']").fill("secret_sauce");
-        await page.locator("[id='login-button']").click();
-        //logged-in
-        await page.waitForLoadState('networkidle');
-        await expect(page.locator("[class='product_label']")).toContainText("Products");
-        //selecting product
-    
-        const products = await page.locator("[class='inventory_item']")
-        const count = 3;
-        //product name
-        const productName = ["Sauce Labs Backpack",
-            "Sauce Labs Bike Light",
-            "Sauce Labs Bolt T-Shirt"
-        ];
-        for(let i=0; i<count; i++)
-            {
-                await products.nth(i).locator("button").click();
-                }
-        page.pause();        
+        await loginPage.loginSuceed();
+        //selecting products
+        const productPage = pomanager.getProductPage();
+        const countType = "fixedQuantity";
+        await productPage.selectFirstThreeProduct();
+
+        //verify product added to cart in PDP
+
+        await productPage.verifyItemQuantity(countType);
+        await productPage.addingCart();
+          
         //verify product added to cart
-        const badgeIcon = await page.locator("[class*='cart_badge']");
-        await expect(badgeIcon).toContainText(String(count));
-        await badgeIcon.click();
-        
-        //verify all products names in cart
-        
-        for(let i=0; i<count; i++){
-            const productCheckedOut = await page.locator("[class='inventory_item_name']").nth(i);
-            console.log(await productCheckedOut.textContent()); //priting checkout item
-            await expect(productCheckedOut).toContainText(productName[i]);
-        }
-        
+        //checkingout in cart page
+        const cartPage = pomanager.getCartPage();
+        // await cartPage.getCartList(countType);
+        const productName = await cartPage.getCartList(countType);
+        console.log(productName);
+        await cartPage.verifyCart(productName, countType);
+
+        await cartPage.checkingOut();
+
+        //placing order in checkout page
+        const checkoutPage = pomanager.getCheckoutPage();
+        const firstName = "Foo";
+        const lastName = "Bar"
+        const postalCode = "11111"
+        await checkoutPage.completeShipping(firstName, lastName, postalCode);
+        await checkoutPage.submitOrder();
+
+        //verify product in order overview
+        const orderReviewPage = pomanager.getOrderReviewPage();
+        await orderReviewPage.verifyOrderComplete(productName, countType);
+        console.log(await orderReviewPage.verifyReferenceNumber());
+        await orderReviewPage.completeOrder();
+
+        //verify order success
+        const thankyouPage = pomanager.getThankYouPage();
+        await thankyouPage.verifyThankYouMessage();
        
-       //pause
-        // await page.pause();
-    
-    
-    
     })
     
 test('5 - Cart - Multiple Products(Fixed Products)', async ({page}) =>
     {
     
+       
         //go to url
-        await page.goto("https://www.saucedemo.com/v1/");
+        const pomanager = new POManager(page);
+        
+        const loginPage = pomanager.getLoginPage();
+        //go to url
+        const sourceURL = "https://www.saucedemo.com/v1/index.html";
+        await loginPage.goTo(sourceURL);
+        const username = "standard_user";
+        const password = "secret_sauce";
+        await loginPage.validLogin(username, password);
         //login
-        await page.locator("[data-test='username']").fill("standard_user");
-        await page.locator("[data-test='password']").fill("secret_sauce");
-        await page.locator("[id='login-button']").click();
-        //logged-in
-        await page.waitForLoadState('networkidle');
-        await expect(page.locator("[class='product_label']")).toContainText("Products");
+        await loginPage.loginSuceed(); 
         //selecting product
-    
-        const products = await page.locator("[class='inventory_item']")
-        const count = await products.count();
-        const productCount = 3
-        //product name
-        const productName = ["Sauce Labs Backpack",
+        const productPage = pomanager.getProductPage();
+        const countType = "allProducts";
+        const selectproductName = ["Sauce Labs Backpack",
             "Sauce Labs Bike Light",
             "Sauce Labs Onesie"
         ];
-        for(let i=0; i<count; i++)
-            {   
-                const allProducts = await products.nth(i).locator("div >> a >> div").textContent();
-                // //printing trimmed products
-                // console.log(await allProducts.trim());
-                //logic to check if product is from the list
-                if(productName.includes(allProducts.trim())){
-                    await products.nth(i).locator("button").click();
-                }
-            }        
-        //verify product added to cart
-        const badgeIcon = await page.locator("[class*='cart_badge']");
-        await expect(badgeIcon).toContainText(String(productCount));
-        await badgeIcon.click();
-        // await page.pause();
+        // const productCount = selectproductName.length;
+        await productPage.selectProducts(selectproductName);
         
-        //verify all products names in cart
-        
-        for(let i=0; i<productCount; i++){
-            const productCheckedOut = await page.locator("[class='inventory_item_name']").nth(i);
-            console.log(await productCheckedOut.textContent()); //priting checkout item
-            await expect(productCheckedOut).toContainText(productName[i]);
-        }
-        
-        
-        //pause
-        // await page.pause();
+        //verify product added to cart in PDP
+ 
+        await productPage.verifyItemQuantity(countType);
+        await productPage.addingCart();
+         //verify product added to cart
+        //checkingout in cart page
+        const cartPage = pomanager.getCartPage();
+        // await cartPage.getCartList(countType);
+        const productName = await cartPage.getCartList(countType);
+        console.log(productName);
+        await cartPage.verifyCart(productName, countType);
+
+        await cartPage.checkingOut();
+
+        //placing order in checkout page
+        const checkoutPage = pomanager.getCheckoutPage();
+        const firstName = "Foo";
+        const lastName = "Bar"
+        const postalCode = "11111"
+        await checkoutPage.completeShipping(firstName, lastName, postalCode);
+        await checkoutPage.submitOrder();
+
+        //verify product in order overview
+        const orderReviewPage = pomanager.getOrderReviewPage();
+        await orderReviewPage.verifyOrderComplete(productName, countType);
+        console.log(await orderReviewPage.verifyReferenceNumber());
+        await orderReviewPage.completeOrder();
+
+        //verify order success
+        const thankyouPage = pomanager.getThankYouPage();
+        await thankyouPage.verifyThankYouMessage();
+       
     
     
     
@@ -197,78 +207,67 @@ test('6 - Cart - Total Sum of the Order in Cart)', async ({page}) =>
     {
     
         //go to url
-        await page.goto("https://www.saucedemo.com/v1/");
+        const pomanager = new POManager(page);
+        
+        const loginPage = pomanager.getLoginPage();
+        //go to url
+        const sourceURL = "https://www.saucedemo.com/v1/index.html";
+        await loginPage.goTo(sourceURL);
+        const username = "standard_user";
+        const password = "secret_sauce";
+        await loginPage.validLogin(username, password);
         //login
-        await page.locator("[data-test='username']").fill("standard_user");
-        await page.locator("[data-test='password']").fill("secret_sauce");
-        await page.locator("[id='login-button']").click();
-        //logged-in
-        await page.waitForLoadState('networkidle');
-        await expect(page.locator("[class='product_label']")).toContainText("Products");
+        await loginPage.loginSuceed(); 
         //selecting product
-    
-        const products = await page.locator("[class='inventory_item']");
-        const price = await page.locator("[class='inventory_item_price']");
-        const count = await products.count();
-        const productCount = 3;
+        const productPage = pomanager.getProductPage();
+        const countType = "allProducts";
         //product name
-        const productName = ["Sauce Labs Backpack",
+        const selectproductName = ["Sauce Labs Backpack",
             "Sauce Labs Bike Light",
             "Sauce Labs Onesie"
         ];
-
-        let cartTotals = 0;
-        for(let i=0; i<count; i++)
-            {   
-                const allProducts = await products.nth(i).locator("div >> a >> div").textContent();
-                // //printing trimmed products
-                // console.log(await allProducts.trim());
-                //logic to check if product is from the list
-                if(productName.includes(allProducts.trim())){
-                    const total = await price.nth(i).textContent();
-                    const totalArray = total.split(' ');
-                    console.log(await totalArray); 
-                    for (let i=0; i<totalArray.length; i++ ){
-                    const totals = Number(totalArray[i].replace('$', ''));
-                    cartTotals += totals
-                    }
-                //proceed to add products       
-                    await products.nth(i).locator("button").click();
-                }
-            }     
-        console.log(await cartTotals); //priting Cart amount
+        // const productCount = selectproductName.length;   
    
+        await productPage.selectProducts(selectproductName);
+        const getTotal = await productPage.getProductAmount(selectproductName, countType);
+        await console.log(`Total Amount in Product Page ${getTotal}`);
+       
+        // verify product added to cart in PDP
+ 
+        await productPage.verifyItemQuantity(countType);
+        await productPage.addingCart();
         //verify product added to cart
-        const badgeIcon = await page.locator("[class*='cart_badge']");
-        await expect(badgeIcon).toContainText(String(productCount));
-        await badgeIcon.click();
-        // await page.pause();
-        
-        //verify all products names in cart
-        
-        for(let i=0; i<productCount; i++){
-            const productCheckedOut = await page.locator("[class='inventory_item_name']").nth(i);
-            await expect(productCheckedOut).toContainText(productName[i]);
-        }
-        
-        await page.locator("[class*='checkout_button']").click();
-        //fill up checkout information
-        await page.locator("[id='first-name']").fill("Foo");
-        await page.locator("[id='last-name']").fill("bar");
-        await page.locator("[id='postal-code']").fill("00000");
-        await page.locator("[type='submit']").click();
+        //checkingout in cart page
+        const cartPage = pomanager.getCartPage();
+        // await cartPage.getCartList(countType);
+        const productName = await cartPage.getCartList(countType);
+        await cartPage.verifyCart(productName, countType);
+        const getCartTotal = await cartPage.verifyCartAmount(countType);
+        await console.log(`Total Amount in Cart Page ${getCartTotal}`);
+        await cartPage.compareTotalCart(getTotal, getCartTotal);
+        await cartPage.checkingOut();
 
-        //verify amount in order sumarry is same as cart amount
-        const sumAmount = await page.locator("[class='summary_subtotal_label']").textContent();
-        const finalAmount = await Number(sumAmount.split(' ').pop().replace('$', ''));
-        console.log(await finalAmount)
-        await expect(cartTotals).toBe(finalAmount);
+        //placing order in checkout page
+        const checkoutPage = pomanager.getCheckoutPage();
+        const firstName = "Foo";
+        const lastName = "Bar";
+        const postalCode = "11111";
+        await checkoutPage.completeShipping(firstName, lastName, postalCode);
+        await checkoutPage.submitOrder();
 
-        //pause
-        // await page.pause();
-    
 
-        
-        
+        //verify product in order overview
+        const orderReviewPage = pomanager.getOrderReviewPage();
+        await orderReviewPage.verifyOrderComplete(productName, countType);
+        const getORTotal = await orderReviewPage.orderTotal();
+        await console.log(`Total Amount in Order Review Page ${getORTotal}`);
+        await orderReviewPage.compareTotalPDP(getTotal, getORTotal);
+        console.log(await orderReviewPage.verifyReferenceNumber());
+        await orderReviewPage.completeOrder();
+
+        //verify order success
+        const thankyouPage = pomanager.getThankYouPage();
+        await thankyouPage.verifyThankYouMessage();
+               
     
     })

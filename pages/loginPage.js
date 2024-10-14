@@ -27,7 +27,7 @@ async validLogin(usernames, passwords)
 
 async loginSuceed()
 {
-    this.expect(await page.url()).toBe("https://www.saucedemo.com/v1/inventory.html");
+    expect(await this.page.url()).toBe("https://www.saucedemo.com/v1/inventory.html");
 }
 
 async loginNotSuceed()
