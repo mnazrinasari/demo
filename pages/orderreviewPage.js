@@ -11,18 +11,10 @@ class OrderReviewPage {
 
 }
 
-async verifyOrderComplete(productName, countType)
+async verifyOrderComplete(productName)
 {
 
-    let count;
-    if(countType === "allProducts")
-    {
-        count = await this.orderCompletedProducts.count();
-    }
-    else if(countType === "fixedQuantity")
-    {
-        count = 3; 
-    }
+    let count = await this.orderCompletedProducts.count();
 
     for(let i=0; i<count; i++)
         {
@@ -31,6 +23,30 @@ async verifyOrderComplete(productName, countType)
             expect (orderReviewed).toBeTruthy();
         }           
 }
+
+
+async verifyProductComplete()
+{ 
+    let count = await this.orderCompletedProducts.count();
+    
+    
+    const productText = [];
+    for(let i=0; i<count; i++)
+        {
+            const text = await this.orderCompletedProducts.nth(i).textContent();
+            if (text){
+                productText.push(text.trim());
+
+            }
+            else{
+                console.warn("undefined");
+            }
+
+        }
+    return productText;
+
+}
+
 
 async verifyReferenceNumber()
 {

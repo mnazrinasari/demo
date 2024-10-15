@@ -30,30 +30,11 @@ async selectProducts(selectproductName)
 }
 
 
-async selectFirstThreeProduct()
-{
-    let count =3;
 
-    //selecting product
-    
-    for(let i=0; i<count; i++)
-        {
-            await this.products.nth(i).locator("button").click();
-        }
-
-}
-
-async getProductAmount(selectproductName, countType)
+async getProductAmount(selectproductName)
 {   
-    let count;
-    if(countType === "allProducts")
-    {
-        count = await this.products.count();
-    }
-    else if(countType === "fixedQuantity")
-    {
-        count = 3; 
-    }
+    let count = await this.products.count();
+   
     
     // console.log(count);
     let productAmount = 0;
@@ -76,17 +57,10 @@ async getProductAmount(selectproductName, countType)
 return productAmount;
 }
 
-async verifyItemQuantity(countType)
+async verifyItemQuantity()
 {
-    let finalCount;
-    if(countType === "allProducts")
-    {
-        finalCount = await this.removeIcon.count();
-    }
-    else if(countType === "fixedQuantity")
-    {
-        finalCount = 3;
-    }
+    let finalCount = await this.removeIcon.count();
+ 
     
     expect(await this.badgeIcon.textContent()).toBe(String(finalCount));
     

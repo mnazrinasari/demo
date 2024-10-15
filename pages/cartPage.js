@@ -11,18 +11,10 @@ class CartPage {
 }
 
 
-async getCartList(countType)
+async getCartList()
 {
     {   
-        let count;
-        if(countType === "allProducts")
-        {
-            count = await this.cartItems.count();
-        }
-        else if(countType === "fixedQuantity")
-        {
-            count = 3; 
-        }
+        let count = await this.cartItems.count();
         
         const productText = [];
         for(let i=0; i<count; i++)
@@ -43,19 +35,11 @@ async getCartList(countType)
 }
 
 
-async verifyCart(productName, countType)
+async verifyCart(productName)
 {
 
-    let count;
-    if(countType === "allProducts")
-    {
-        count = await this.cartItems.count();
-    }
-    else if(countType === "fixedQuantity")
-    {
-        count = 3; 
-    }
-
+    let count = await this.cartItems.count();
+   
     for(let i=0; i<count; i++)
         {
             const productCheckedOut = await this.cartItems.nth(i);
@@ -65,17 +49,9 @@ async verifyCart(productName, countType)
 }
 
 
-async verifyCartAmount(countType)
+async verifyCartAmount()
 {
-    let count;
-    if(countType === "allProducts")
-    {
-        count = await this.cartItems.count();
-    }
-    else if(countType === "fixedQuantity")
-    {
-        count = 3; 
-    }
+    let count = await this.cartItems.count();
 
     const amountText = [];
     let totalCartAmount = 0;
