@@ -117,3 +117,20 @@ Given('Login and landing in product detail page', async function () {
     await console.log(`Total Amount in Order Review Page ${this.getORTotal}`);
     await this.orderReviewPage.compareTotalPDP(this.getTotal, this.getORTotal);
   });
+
+
+  Then('Navigate to checkout', async function () {
+    await this.cartPage.checkingOut();
+  });
+
+  Then('Navigate to order review', async function () {
+    this.checkoutPage = this.pomanager.getCheckoutPage();
+    const firstName = "Foo";
+    const lastName = "Bar"
+    const postalCode = "11111"
+    await this.checkoutPage.completeShipping(firstName, lastName, postalCode);
+    await this.checkoutPage.submitOrder()
+
+  });
+
+  
