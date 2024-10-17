@@ -149,7 +149,7 @@ test('4 - Cart - Multiple Products(Fixed Products)', async ({page}) =>
     
     })
 
-test('6 - Cart - Total Sum of the Order in Cart)', async ({page}) =>
+test.only('6 - Cart - Total Sum of the Order in Cart)', async ({page}) =>
     {
     
         //go to url
@@ -166,7 +166,6 @@ test('6 - Cart - Total Sum of the Order in Cart)', async ({page}) =>
         await loginPage.loginSuceed(); 
         //selecting product
         const productPage = pomanager.getProductPage();
-        const countType = "allProducts";
         //product name
         const selectproductName = ["Sauce Labs Backpack",
             "Sauce Labs Bike Light",
@@ -175,20 +174,32 @@ test('6 - Cart - Total Sum of the Order in Cart)', async ({page}) =>
         // const productCount = selectproductName.length;   
    
         await productPage.selectProducts(selectproductName);
-        const getTotal = await productPage.getProductAmount(selectproductName, countType);
+        const getTotal = await productPage.getProductAmount(selectproductName);
         await console.log(`Total Amount in Product Page ${getTotal}`);
        
         // verify product added to cart in PDP
  
-        await productPage.verifyItemQuantity(countType);
+        await productPage.verifyItemQuantity();
+        const ascendOption = "Price (low to high)";
+        const pricing = await productPage.priceDisplay();
+        await console.log(`Before Ascend ${pricing}`);
+        await productPage.selectSorting(ascendOption);
+        const afterPricing = await productPage.priceDisplay();
+        const pricingFinal = [...pricing];
+        await console.log(`After Ascend ${afterPricing}`);
+        const afterSorting = await productPage.priceSortingAscend(pricing);
+        await console.log(`After Sorting ${afterSorting}`);
+        await console.log(`Before Ascend ${pricingFinal}`);
+        await productPage.compareSorting(afterPricing, afterSorting);
         await productPage.addingCart();
+
         //verify product added to cart
         //checkingout in cart page
         const cartPage = pomanager.getCartPage();
-        // await cartPage.getCartList(countType);
-        const productName = await cartPage.getCartList(countType);
-        await cartPage.verifyCart(productName, countType);
-        const getCartTotal = await cartPage.verifyCartAmount(countType);
+        // await cartPage.getCartList();
+        const productName = await cartPage.getCartList();
+        await cartPage.verifyCart(productName);
+        const getCartTotal = await cartPage.verifyCartAmount();
         await console.log(`Total Amount in Cart Page ${getCartTotal}`);
         await cartPage.compareTotalCart(getTotal, getCartTotal);
         await cartPage.checkingOut();
@@ -204,7 +215,7 @@ test('6 - Cart - Total Sum of the Order in Cart)', async ({page}) =>
 
         //verify product in order overview
         const orderReviewPage = pomanager.getOrderReviewPage();
-        await orderReviewPage.verifyOrderComplete(productName, countType);
+        await orderReviewPage.verifyOrderComplete(productName);
         const getORTotal = await orderReviewPage.orderTotal();
         await console.log(`Total Amount in Order Review Page ${getORTotal}`);
         await orderReviewPage.compareTotalPDP(getTotal, getORTotal);
