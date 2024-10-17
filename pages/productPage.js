@@ -9,9 +9,13 @@ class ProductPage {
     this.badgeIcon = page.locator("[class*='cart_badge']");
     this.removeIcon = page.locator("[class='btn_secondary btn_inventory']")
     this.productPrice = page.locator("[class='inventory_item_price']");
+    this.sortings = page.locator("[class='product_sort_container']");
 
 }
 
+async selectSorting(ascendOption){
+    await this.sortings.selectOption(ascendOption);
+}
 
 async selectProducts(selectproductName)
 {
@@ -60,8 +64,6 @@ return productAmount;
 async verifyItemQuantity()
 {
     let finalCount = await this.removeIcon.count();
- 
-    
     expect(await this.badgeIcon.textContent()).toBe(String(finalCount));
     
 }
@@ -74,7 +76,49 @@ async addingCart()
     await this.badgeIcon.click();
 }
 
+async priceDisplay()
+{
+    let priceArray = [];
+    const count = await this.productPrice.count();
+    for(let i=0; i<count; i++){
+        const total2 = await this.productPrice.nth(i).textContent();
+        const totalArray = total2.split(' ');
+        for (let i=0; i<totalArray.length; i++){
+            const pricedone = Number(totalArray[i].replace('$', ''));
+            priceArray.push(pricedone);
+        }  
+    }
+    return priceArray; 
+}
 
+async priceSortingAscend(pricing){
+    const sorted = [];
+    while (pricing.length > 0){
+        let minIndex = 0;
+        for(let i=1; i<pricing.length; i++){
+            if (pricing[i]<pricing[minIndex]){
+                minIndex = i;
+            }
+        }
+    sorted.push(pricing[minIndex]);
+    pricing.splice(minIndex, 1);
+    }
+    return sorted;
+    // for (var i = 1; i < pricing.length; i++)
+    //     for (var j = 0; j < i; j++)
+    //         if (pricing[i] < pricing[j]) {
+    //             var x = pricing[i];
+    //             pricing[i] = pricing[j];
+    //             pricing[j] = x;
+    //             sorted += x;
+    //         }
+    // return pricing;
+}
+
+async compareSorting(pricing, afterSorting){
+        expect(pricing).toEqual(afterSorting);
+
+}
 
 
 

@@ -1,4 +1,3 @@
-
 const {POManager} = require('../../pages/POManager');
 const {Before, After} = require('@cucumber/cucumber');
 const {AfterStep, BeforeStep, Status} = require('@cucumber/cucumber');
@@ -12,6 +11,9 @@ Before(async function () {
   this. context = await this.browser.newContext();
   this.page = await this.context.newPage();
   this.pomanager = new POManager(this.page);  
+  this.loginPage = this.pomanager.getLoginPage();
+  const sourceURL = "https://www.saucedemo.com/v1/index.html";
+  await this.loginPage.goTo(sourceURL);  
     
  
 

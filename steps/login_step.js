@@ -25,9 +25,6 @@ Then('User is logged in', async function () {
 
 
 Given('User on login page enters a locked username and password', async function () {
-  this.loginPage = this.pomanager.getLoginPage();
-  const sourceURL = "https://www.saucedemo.com/v1/index.html";
-  await this.loginPage.goTo(sourceURL);  
   this.emails = "locked_out_user";
   this.passwords = "secret_sauce";
 });
