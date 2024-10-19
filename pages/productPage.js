@@ -10,11 +10,35 @@ class ProductPage {
     this.removeIcon = page.locator("[class='btn_secondary btn_inventory']")
     this.productPrice = page.locator("[class='inventory_item_price']");
     this.sortings = page.locator("[class='product_sort_container']");
+    this.productsname = page.locator("[class ='inventory_item_name']");
 
 }
 
 async selectSorting(ascendOption){
     await this.sortings.selectOption(ascendOption);
+}
+
+async getProductList()
+{
+    {   
+        let count = await this.productsname.count();
+        
+        const productText = [];
+        for(let i=0; i<count; i++)
+            {
+                const text = await this.productsname.nth(i).textContent();
+                if (text){
+                    productText.push(text.trim());
+
+                }
+                else{
+                    console.warn("undefined");
+                }
+
+            }
+        return productText;
+    }
+    
 }
 
 async selectProducts(selectproductName)
@@ -104,19 +128,63 @@ async priceSortingAscend(pricing){
     pricing.splice(minIndex, 1);
     }
     return sorted;
-    // for (var i = 1; i < pricing.length; i++)
-    //     for (var j = 0; j < i; j++)
-    //         if (pricing[i] < pricing[j]) {
-    //             var x = pricing[i];
-    //             pricing[i] = pricing[j];
-    //             pricing[j] = x;
-    //             sorted += x;
-    //         }
-    // return pricing;
 }
 
-async compareSorting(pricing, afterSorting){
-        expect(pricing).toEqual(afterSorting);
+
+async priceSortingDescend(pricing){
+    const sorted = [];
+    while (pricing.length > 0){
+        let maxIndex = 0;
+        for(let i=1; i<pricing.length; i++){
+            if (pricing[i]>pricing[maxIndex]){
+                maxIndex = i;
+            }
+        }
+    sorted.push(pricing[maxIndex]);
+    pricing.splice(maxIndex, 1);
+    }
+    return sorted;  
+}
+
+
+async letterSortingAscend(allProducts){
+    const sorted = [];
+    for(let i=0; i<allProducts.length; i++){
+        for(let j=0; j<allProducts.length-i-1; j++){
+            if(allProducts[j] > allProducts[j+1]){
+                const temp = allProducts[j];
+                allProducts[j] = allProducts[j+1];
+                allProducts[j+1] = temp;
+            }
+        }
+    }
+    for(let i=0; i<allProducts.length; i++){
+        sorted.push(allProducts[i]);
+    }
+    
+    return sorted;  
+}
+
+async letterSortingDescend(allProducts){
+    const sorted = [];
+    for(let i=0; i<allProducts.length; i++){
+        for(let j=0; j<allProducts.length-i-1; j++){
+            if(allProducts[j] < allProducts[j+1]){
+                const temp = allProducts[j];
+                allProducts[j] = allProducts[j+1];
+                allProducts[j+1] = temp;
+            }
+        }
+    }
+    for(let i=0; i<allProducts.length; i++){
+        sorted.push(allProducts[i]);
+    }
+    
+    return sorted;  
+}
+
+async compareSorting(pricing, sortingOption){
+        expect(pricing).toEqual(sortingOption);
 
 }
 

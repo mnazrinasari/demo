@@ -180,17 +180,82 @@ test.only('6 - Cart - Total Sum of the Order in Cart)', async ({page}) =>
         // verify product added to cart in PDP
  
         await productPage.verifyItemQuantity();
-        const ascendOption = "Price (low to high)";
-        const pricing = await productPage.priceDisplay();
-        await console.log(`Before Ascend ${pricing}`);
-        await productPage.selectSorting(ascendOption);
-        const afterPricing = await productPage.priceDisplay();
-        const pricingFinal = [...pricing];
-        await console.log(`After Ascend ${afterPricing}`);
-        const afterSorting = await productPage.priceSortingAscend(pricing);
-        await console.log(`After Sorting ${afterSorting}`);
-        await console.log(`Before Ascend ${pricingFinal}`);
-        await productPage.compareSorting(afterPricing, afterSorting);
+
+
+        //sorting to A to Z (Default)
+        let allProducts = await productPage.getProductList();
+        await console.log(`[CASE1]Before Ascend ${allProducts}`); //display initial price display
+        let ascendOption = "Name (A to Z)";
+        await productPage.selectSorting(ascendOption); //CLICK ACTION !! sorting to low to high
+        let afterSorting = await productPage.getProductList(); //get the low to high list
+        let productsInitial = [...allProducts];
+        //store the unsorted list in pricing in pricingFinal
+        await console.log(`After Manual Sorting ${afterSorting}`); //display low to high after sorting
+        await console.log(`After Ascend,Initial Value ${allProducts}`); //display low to high after sorting
+
+        const afterSortingAZ = await productPage.letterSortingAscend(allProducts); //MANUAL SORTING !!! manipulating pricing without touching intial in pricingInitial
+
+        await console.log(`After Manual Sorting ${afterSortingAZ}`);
+        await console.log(`Before Ascend ${productsInitial}`);
+        let sortingOption = afterSortingAZ;
+        await productPage.compareSorting(afterSorting, sortingOption);
+
+        //sorting to Z to A 
+        allProducts = await productPage.getProductList();
+        await console.log(`[CASE2]Before Ascend ${allProducts}`); //display initial price display
+        ascendOption = "Name (Z to A)";
+        await productPage.selectSorting(ascendOption); //CLICK ACTION !! sorting to low to high
+        afterSorting = await productPage.getProductList(); //get the low to high list
+        productsInitial = [...allProducts];
+        //store the unsorted list in pricing in pricingFinal
+        await console.log(`After Ascend ${afterSorting}`); //display low to high after sorting
+        await console.log(`After Ascend,Initial Value ${allProducts}`); //display low to high after sorting
+
+        const afterSortingZA = await productPage.letterSortingDescend(allProducts); //MANUAL SORTING !!! manipulating pricing without touching intial in pricingInitial
+
+        await console.log(`After Sorting ${afterSortingZA}`);
+        await console.log(`Before Ascend ${productsInitial}`);
+        sortingOption = afterSortingZA;
+        await productPage.compareSorting(afterSorting, sortingOption);  
+
+
+
+
+        //sorting to low to high
+        ascendOption = "Price (low to high)";
+        let pricing = await productPage.priceDisplay();
+        await console.log(`[CASE3]Before Ascend ${pricing}`); //display initial price display
+        await productPage.selectSorting(ascendOption); //CLICK ACTION !! sorting to low to high
+        afterSorting = await productPage.priceDisplay(); //get the low to high list
+        let pricingInitial = [...pricing]; //store the unsorted list in pricing in pricingFinal
+        await console.log(`After Ascend ${afterSorting}`); //display low to high after sorting
+        await console.log(`After Ascend,Initial Value ${pricing}`); //display low to high after sorting
+
+        const afterSortingLow = await productPage.priceSortingAscend(pricing); //MANUAL SORTING !!! manipulating pricing without touching intial in pricingInitial
+        await console.log(`After Sorting ${afterSortingLow}`);
+        await console.log(`Before Ascend ${pricingInitial}`);
+        sortingOption = afterSortingLow;
+        await productPage.compareSorting(afterSorting, sortingOption);
+
+        //sorting to low to high
+        ascendOption = "Price (high to low)";
+        pricing = await productPage.priceDisplay();
+        await console.log(`[CASE4]Before Ascend ${pricing}`); //display initial price display
+        await productPage.selectSorting(ascendOption); //CLICK ACTION !! sorting to low to high
+        afterSorting = await productPage.priceDisplay(); //get the low to high list
+        pricingInitial = [...pricing]; //store the unsorted list in pricing in pricingFinal
+        await console.log(`After Ascend ${afterSorting}`); //display low to high after sorting
+        await console.log(`After Ascend,Initial Value ${pricing}`); //display low to high after sorting
+
+        const afterSortingHigh= await productPage.priceSortingDescend(pricing); //MANUAL SORTING !!! manipulating pricing without touching intial in pricingInitial
+        await console.log(`After Logic Sorting ${afterSortingHigh}`);
+        await console.log(`Before Ascend ${pricingInitial}`);
+        sortingOption = afterSortingHigh;
+        await productPage.compareSorting(afterSorting, sortingOption);
+
+
+        
+
         await productPage.addingCart();
 
         //verify product added to cart
