@@ -149,7 +149,7 @@ test('4 - Cart - Multiple Products(Fixed Products)', async ({page}) =>
     
     })
 
-test.only('6 - Cart - Total Sum of the Order in Cart)', async ({page}) =>
+test('6 - Cart - Total Sum of the Order in Cart)', async ({page}) =>
     {
     
         //go to url
