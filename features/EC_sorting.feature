@@ -1,6 +1,5 @@
 Feature: Product sorting in PDP grid
-
-  @only  
+  
   Scenario: Verify Product grid sorting options
     Given Login and landing in product detail page
     Then Verify product grid is sorted alphabetically ascending by default

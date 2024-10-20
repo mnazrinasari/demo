@@ -20,14 +20,7 @@ async getCartList()
         for(let i=0; i<count; i++)
             {
                 const text = await this.cartItems.nth(i).textContent();
-                if (text){
-                    productText.push(text.trim());
-
-                }
-                else{
-                    console.warn("undefined");
-                }
-
+                productText.push(text.trim());
             }
         return productText;
     }
@@ -75,6 +68,21 @@ async checkingOut()
 {
     await this.checkout.click();
 }
+
+async compareCartProducts(selectproductName, cartProducts)
+{
+    if(selectproductName.length !== cartProducts.length){
+        throw new Error("List not match in length")
+    }
+
+    for(let i=0; i<selectproductName.length; i++){
+        await expect(cartProducts[i]).toBe(selectproductName[i]);
+    }
+
+
+}
+
+
 }
 
 module.exports = {CartPage};

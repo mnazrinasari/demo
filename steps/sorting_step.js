@@ -23,7 +23,6 @@ Then('Verify product grid is sorted alphabetically ascending by default', async 
   });
 
   Then('Verify product grid is sorted alphabetically descending', async function () {
-
     const afterSorting = await this.productPage.getProductList(); 
     let productsInitial = [...this.allProducts];
     const afterSortingZA = await this.productPage.letterSortingDescend(this.allProducts); 
@@ -43,7 +42,6 @@ Then('Verify product grid is sorted alphabetically ascending by default', async 
     const afterSortingLow = await this.productPage.priceSortingAscend(this.pricing); 
     const sortingOption = afterSortingLow;
     await this.productPage.compareSorting(afterSorting, sortingOption);
-
   });
 
   Then('Sort product grid to numerically descending', async function () {
@@ -68,8 +66,7 @@ Then('Verify product grid is sorted alphabetically ascending by default', async 
 
   Then('Verify product grid is sorted alphabetically ascending', async function () {
     const afterSorting = await this.productPage.getProductList(); 
-    let productsInitial = [...this.allProducts];
-
+    productsInitial = [...this.allProducts];
     const afterSortingAZ = await this.productPage.letterSortingAscend(this.allProducts); 
     const sortingOption = afterSortingAZ;
     await this.productPage.compareSorting(afterSorting, sortingOption);

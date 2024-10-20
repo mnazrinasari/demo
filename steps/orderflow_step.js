@@ -137,3 +137,42 @@ Given('Login and landing in product detail page', async function () {
 
   
 
+  Then('Click add multiple product to cart by random sequence', async function () {
+    this.productPage = this.pomanager.getProductPage();
+    this.selectproductName =  ["Test.allTheThings() T-Shirt (Red)",
+      "Sauce Labs Fleece Jacket",
+      "Sauce Labs Onesie"
+  ];
+    await this.productPage.selectProducts(this.selectproductName);
+    await this.productPage.addingCart();
+
+  });
+
+
+  Then('Verify product display order in View Cart', async function () {
+    this.cartPage = this.pomanager.getCartPage();
+    const cartProducts = await this.cartPage.getCartList();
+    // console.log(this.selectproductName);
+    // console.log(cartProducts);
+    await this.cartPage.compareCartProducts(this.selectproductName, cartProducts);
+
+  });
+
+  Then('Navigate checkout and to order review', async function () {
+    await this.cartPage.checkingOut();
+    this.checkoutPage = this.pomanager.getCheckoutPage();
+    const firstName = "Foo";
+    const lastName = "Bar"
+    const postalCode = "11111"
+    await this.checkoutPage.completeShipping(firstName, lastName, postalCode);
+    await this.checkoutPage.submitOrder()
+  });
+ 
+  Then('Verify product display order in View Cart in order review page', async function () {
+    this.orderReviewPage = this.pomanager.getOrderReviewPage();
+    const ORProducts = await this.orderReviewPage.verifyProductComplete();
+    // console.log(this.selectproductName);
+    // console.log(ORProducts);
+    await this.cartPage.compareCartProducts(this.selectproductName, ORProducts);
+
+  });

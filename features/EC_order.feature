@@ -38,3 +38,11 @@ Scenario: Verify Order Amount in Complete order flow
     And Navigate to order review
     Then Verify total amount in order review page
 
+@only 
+Scenario: Verify product display according to adding to cart sequence
+    Given Login and landing in product detail page
+    Then Click add multiple product to cart by random sequence
+    And Verify product display order in View Cart
+    Then Navigate checkout and to order review
+    And Verify product display order in View Cart in order review page
+
