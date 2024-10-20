@@ -72,6 +72,19 @@ async completeOrder()
     await this.completedOrder.click();
 }
 
+async compareORProducts(selectproductName, ORProducts)
+{
+    if(selectproductName.length !== ORProducts.length){
+        throw new Error("List not match in length")
+    }
+
+    for(let i=0; i<selectproductName.length; i++){
+        await expect(ORProductss[i]).toBe(selectproductName[i]);
+    }
+
+}
+
+
 }
 
 module.exports = {OrderReviewPage};
