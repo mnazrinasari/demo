@@ -87,7 +87,7 @@ test('3 - Complete Order Flow - Single Product', async ({page}) =>
 
     })
     
-test.only('4 - Cart - Multiple Products(Fixed Products)', async ({page}) =>
+test('4 - Cart - Multiple Products(Fixed Products)', async ({page}) =>
     {
     
        
