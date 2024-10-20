@@ -49,7 +49,7 @@ test('3 - Complete Order Flow - Single Product', async ({page}) =>
 
     //selecting product in PDP
     const productPage = pomanager.getProductPage();
-    const selectproductName = "Sauce Labs Bolt T-Shirt";
+    const selectproductName = ["Sauce Labs Bolt T-Shirt"];
     await productPage.selectProducts(selectproductName);
 
     //verify product added to cart in PDP
