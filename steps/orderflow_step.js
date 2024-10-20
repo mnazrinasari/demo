@@ -101,18 +101,20 @@ Given('Login and landing in product detail page', async function () {
 
   Then('Verify total amount of product added to cart', async function () {
     this.getTotal = await this.productPage.getProductAmount(this.selectproductName);
-    await console.log(`Total Amount in Product Page ${this.getTotal}`);
+    console.log(`Total Amount in Product Page ${this.getTotal}`);
   });
 
 
   Then('Verify Cart Amount', async function () {
+    this.cartPage = this.pomanager.getCartPage();
     this.getCartTotal = await this.cartPage.verifyCartAmount();
-    await console.log(`Total Amount in Cart Page ${this.getCartTotal}`);
+    console.log(`Total Amount in Cart Page ${this.getCartTotal}`);
     await this.cartPage.compareTotalCart(this.getTotal, this.getCartTotal);
 
   });
 
   Then('Verify total amount in order review page', async function () {
+    this.orderReviewPage = this.pomanager.getOrderReviewPage();
     this.getORTotal = await this.orderReviewPage.orderTotal();
     await console.log(`Total Amount in Order Review Page ${this.getORTotal}`);
     await this.orderReviewPage.compareTotalPDP(this.getTotal, this.getORTotal);
@@ -134,3 +136,4 @@ Given('Login and landing in product detail page', async function () {
   });
 
   
+

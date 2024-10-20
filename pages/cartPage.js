@@ -63,7 +63,7 @@ async verifyCartAmount()
         const itemCartAmounts = Number(amountText[i]);
         totalCartAmount += itemCartAmounts;
         }
-return totalCartAmount;
+    return totalCartAmount;
 }
 
 async compareTotalCart(getTotal, getCartTotal)

@@ -14,7 +14,7 @@ Feature: Complete Order Flow
     And Click Finish
     Then Verify thank you page is displayed
 
-#   Scenario: Complete order flow with multiple product
+Scenario: Complete order flow with multiple product
     Given Login and landing in product detail page
     Then Click add multiple product to cart
     And Verify product is added to cart
@@ -28,7 +28,7 @@ Feature: Complete Order Flow
     And Click Finish
     Then Verify thank you page is displayed
 
-#   Scenario: Verify Order Amount in Complete order flow 
+Scenario: Verify Order Amount in Complete order flow 
     Given Login and landing in product detail page
     Then Click add multiple product to cart
     Then Verify total amount of product added to cart
