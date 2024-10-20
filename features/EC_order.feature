@@ -43,5 +43,5 @@ Scenario: Verify product display according to adding to cart sequence
     Then Click add multiple product to cart by random sequence
     And Verify product display order in View Cart
     Then Navigate checkout and to order review
-    And Verify product display order in View Cart in order review page
+    And Verify product display order in order review page
 

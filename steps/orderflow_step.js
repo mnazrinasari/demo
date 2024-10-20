@@ -19,7 +19,7 @@ Given('Login and landing in product detail page', async function () {
 
   Then('Click add single product to cart', async function () {
     this.productPage = this.pomanager.getProductPage();
-    this.selectproductName = "Sauce Labs Bolt T-Shirt";
+    this.selectproductName = ["Sauce Labs Bolt T-Shirt"];
   
     await this.productPage.selectProducts(this.selectproductName);
 
@@ -168,7 +168,7 @@ Given('Login and landing in product detail page', async function () {
     await this.checkoutPage.submitOrder()
   });
  
-  Then('Verify product display order in View Cart in order review page', async function () {
+  Then('Verify product display order in order review page', async function () {
     this.orderReviewPage = this.pomanager.getOrderReviewPage();
     const ORProducts = await this.orderReviewPage.verifyProductComplete();
     // console.log(this.selectproductName);
