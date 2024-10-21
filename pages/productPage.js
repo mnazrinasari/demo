@@ -1,4 +1,5 @@
 const {test, expect} = require('@playwright/test');
+const {chromium} = require('playwright');
 
 class ProductPage {
     constructor(page)
@@ -11,12 +12,14 @@ class ProductPage {
     this.productPrice = page.locator("[class='inventory_item_price']");
     this.sortings = page.locator("[class='product_sort_container']");
     this.productsname = page.locator("[class ='inventory_item_name']");
+    this.producttile = page.locator("[class='inventory_item_label']").first();
 
 }
 
 async selectSorting(ascendOption){
     await this.sortings.selectOption(ascendOption);
 }
+
 
 async getProductList()
 {
@@ -40,6 +43,7 @@ async getProductList()
     }
     
 }
+
 
 async selectProducts(selectproductName)
 {

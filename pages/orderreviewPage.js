@@ -79,7 +79,7 @@ async compareORProducts(selectproductName, ORProducts)
     }
 
     for(let i=0; i<selectproductName.length; i++){
-        await expect(ORProductss[i]).toBe(selectproductName[i]);
+        await expect(ORProducts[i]).toBe(selectproductName[i]);
     }
 
 }
