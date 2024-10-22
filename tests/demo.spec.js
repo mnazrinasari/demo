@@ -120,7 +120,7 @@ test('4 - Cart - Multiple Products(Fixed Products)', async ({page}) =>
         await productPage.removeProducts(totalremove);
         const quantity = cartquantity - totalremove;
         await console.log(quantity);
-        await productPage.verifyItemQuantityafter(cartquantity, totalremove);
+        await productPage.verifyItemQuantityafter(quantity);
 
         await productPage.verifyItemQuantity();
         await productPage.addingCart();
