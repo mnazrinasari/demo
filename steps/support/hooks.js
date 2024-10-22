@@ -6,16 +6,15 @@ const {chromium} = require('playwright');
 Before(async function () {
 
   this.browser = await chromium.launch({
-    headless: false
-  });
-  this. context = await this.browser.newContext();
+    headless: false,
+    args: ["--start-maximized"],
+});
+  this.context = await this.browser.newContext({ viewport: null });
   this.page = await this.context.newPage();
   this.pomanager = new POManager(this.page);  
   this.loginPage = this.pomanager.getLoginPage();
   const sourceURL = "https://www.saucedemo.com/v1/index.html";
-  await this.loginPage.goTo(sourceURL);  
-    
- 
+  await this.loginPage.goTo(sourceURL);
 
 })
 
