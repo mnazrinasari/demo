@@ -113,7 +113,15 @@ test('4 - Cart - Multiple Products(Fixed Products)', async ({page}) =>
         await productPage.selectProducts(selectproductName);
         
         //verify product added to cart in PDP
- 
+
+        const cartquantity = await productPage.totalproductCart();
+        console.log(cartquantity);
+        const totalremove = 1;
+        await productPage.removeProducts(totalremove);
+        const quantity = cartquantity - totalremove;
+        await console.log(quantity);
+        await productPage.verifyItemQuantityafter(quantity);
+
         await productPage.verifyItemQuantity();
         await productPage.addingCart();
          //verify product added to cart
