@@ -8,12 +8,12 @@ class ProductPage {
     this.page = page;
     this.products = page.locator("[class='inventory_item']")
     this.badgeIcon = page.locator("[class*='cart_badge']");
-    this.removeIcon = page.locator("[class='btn_secondary btn_inventory']")
+    this.addtocart = page.locator("[class='btn_primary btn_inventory']");
+    this.removeIcon = page.locator("[class='btn_secondary btn_inventory']");
     this.productPrice = page.locator("[class='inventory_item_price']");
     this.sortings = page.locator("[class='product_sort_container']");
     this.productsname = page.locator("[class ='inventory_item_name']");
     this.producttile = page.locator("[class='inventory_item_label']").first();
-
 }
 
 async selectSorting(ascendOption){
@@ -93,6 +93,12 @@ async getProductAmount(selectproductName)
 return productAmount;
 }
 
+async totalproductCart(){
+    const count = await this.removeIcon.count();
+    return count;
+
+}
+
 async verifyItemQuantity()
 {
     let finalCount = await this.removeIcon.count();
@@ -100,6 +106,12 @@ async verifyItemQuantity()
     
 }
 
+
+async verifyItemQuantityafter(quantity)
+{
+    expect(await this.badgeIcon.textContent()).toBe(String(quantity));
+    
+}
 
 
 async addingCart()
@@ -193,6 +205,17 @@ async letterSortingDescend(allProducts){
 
 async compareSorting(pricing, sortingOption){
         expect(pricing).toEqual(sortingOption);
+
+}
+
+async removeProducts(totalremove)
+{   
+    const count = totalremove;
+    for(let i=0; i<count; i++)
+        {   
+            await this.removeIcon.nth(i).click();
+            break;
+            }
 
 }
 

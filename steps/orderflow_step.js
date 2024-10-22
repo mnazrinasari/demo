@@ -176,3 +176,21 @@ Given('Login and landing in product detail page', async function () {
     await this.cartPage.compareCartProducts(this.selectproductName, ORProducts);
 
   });
+
+
+  Then('Remove products from cart', async function () {
+    this.cartquantity = await this.productPage.totalproductCart();
+    // console.log(this.cartquantity);
+    this.totalremove = 1;
+    await this.productPage.removeProducts(this.totalremove);
+
+
+  });
+
+
+  Then('Verify the number of product in cart symbol is correct', async function () {
+    const quantity = this.cartquantity - this.totalremove;
+    // console.log(quantity);
+    await this.productPage.verifyItemQuantityafter(quantity);
+
+  });
