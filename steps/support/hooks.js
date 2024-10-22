@@ -4,7 +4,6 @@ const {AfterStep, BeforeStep, Status} = require('@cucumber/cucumber');
 const {chromium} = require('playwright');
 
 Before(async function () {
-
   this.browser = await chromium.launch({
     headless: false,
     args: ["--start-maximized"],
@@ -24,11 +23,8 @@ After(async function () {
     await this.browser.close();
 
     console.log("Execution done");  
-      
-   
-  
-  })
 
+  })
 
   AfterStep( async function ({result}) {
     // This hook will be executed after all steps, and take a screenshot on step failure
