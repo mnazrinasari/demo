@@ -45,7 +45,6 @@ Scenario: Verify product display according to adding to cart sequence
     Then Navigate checkout and to order review
     And Verify product display order in order review page
 
-@only
     Scenario: Verify product display according to adding to cart sequence
     Given Login and landing in product detail page
     Then Click add multiple product to cart
