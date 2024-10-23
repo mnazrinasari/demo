@@ -1,7 +1,8 @@
 how to run the test?
-Mocha
 ===================================================================
--mocha runner
+Mocha Runner
+===================================================================
+
 
 npx playwright test
 
@@ -10,7 +11,8 @@ specific test file eg, npx playwright test tests/demo.spec.js
 
 Cucumber
 ====================================================================
--cucumber runner
+Cucumber Runner
+===================================================================
 npx cucumber-js 
 
 specific feature eg, npx cucumber-js features/EC_login.feature
