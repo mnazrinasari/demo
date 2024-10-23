@@ -47,6 +47,7 @@ async getProductList()
 
 async selectProducts(selectproductName)
 {
+    const cartAdded = [];
     let count =  await this.products.count();
     for(const produk of selectproductName){
         for(let i=0; i<count; i++)
@@ -56,11 +57,14 @@ async selectProducts(selectproductName)
                 // console.log(await allProducts.trim());
                 //logic to check if product is from the list
                 if(allProducts.trim() === produk){
+                    const added = await this.products.nth(i).locator("div > a > div").textContent();
+                    cartAdded.push(added.trim());
                     await this.products.nth(i).locator("button").click();
                     break;
                 }
             }
     }
+    return cartAdded;
  
 
 }
@@ -208,17 +212,62 @@ async compareSorting(pricing, sortingOption){
 
 }
 
-async removeProducts(totalremove)
-{   
-    const count = totalremove;
-    for(let i=0; i<count; i++)
-        {   
-            await this.removeIcon.nth(i).click();
-            break;
+
+async removeProducts(selectproductName, totalremove)
+{
+    const cartRemoved = [];
+    let count =  await this.products.count();
+    let matchCount = 0;
+
+    for(const produk of selectproductName){
+        for(let i=0; i<count; i++)
+            {   
+                const allProducts = await this.productsname.nth(i).textContent();
+                const matchedProduct = allProducts.trim();
+                if(matchedProduct === produk){
+                    const removed= await this.products.nth(i).locator("div > a > div").textContent();
+                    cartRemoved.push(removed.trim());
+                    // console.log(matchedProduct);
+                    await this.products.nth(i).locator("button").click();
+                    // console.log(added);
+                    matchCount++;
+                    // console.log(matchCount);
+
+                    }
+                    if(matchCount >= totalremove){
+                        break;
+
+                }
             }
+
+
+
+    }
+    return cartRemoved;
+
+async getcartProducts();
+const currentCart = [];
+this.removeIcon
+const product= await this.products.nth(i).locator("div > a > div").textContent();
+cartRemoved.push(removed.trim());
+
+ 
 
 }
 
+// async removeProducts(totalremove) //simple logic to remove producst without storing the names
+// {   
+//     const productText = [];
+//     const count = totalremove;
+//     for(let i=0; i<count; i++)
+//         {   
+            
+//             await this.products.nth(i).locator("REMOVE").click();
+//             const text = await this.productile.nth(i).locator("div>a>div").textContent();
+//             productText.push(text.trim());
+//             } 
+//     return productText;
+// }
 
 
 }
