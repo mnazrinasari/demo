@@ -244,16 +244,27 @@ async removeProducts(selectproductName, totalremove)
 
     }
     return cartRemoved;
+}
 
-async getcartProducts();
-const currentCart = [];
-this.removeIcon
-const product= await this.products.nth(i).locator("div > a > div").textContent();
-cartRemoved.push(removed.trim());
-
- 
+async getcartProducts(){
+    const cartCurrent = [];
+    let count =  await this.products.count();
+    for(let i=0; i<count; i++){
+        const productName = await this.products.nth(i).locator("[class='inventory_item_name']");
+        const button = await this.products.nth(i).locator("button");
+        const buttonText = await button.textContent();
+        // console.log(buttonText);
+        if(buttonText.trim() === "REMOVE"){
+            const productNames = await productName.textContent();
+            cartCurrent.push(productNames.trim());
+        }
+    }
+    return cartCurrent;
 
 }
+ 
+
+
 
 // async removeProducts(totalremove) //simple logic to remove producst without storing the names
 // {   
