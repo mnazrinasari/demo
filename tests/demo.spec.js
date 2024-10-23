@@ -87,7 +87,7 @@ test('3 - Complete Order Flow - Single Product', async ({page}) =>
 
     })
     
-test('4 - Cart - Multiple Products(Fixed Products)', async ({page}) =>
+test.only('4 - Cart - Multiple Products(Fixed Products)', async ({page}) =>
     {
     
        
@@ -110,17 +110,24 @@ test('4 - Cart - Multiple Products(Fixed Products)', async ({page}) =>
             "Sauce Labs Onesie"
         ];
         // const productCount = selectproductName.length;
-        await productPage.selectProducts(selectproductName);
+        const addingCart = await productPage.selectProducts(selectproductName);
+        console.log(addingCart);
         
         //verify product added to cart in PDP
 
         const cartquantity = await productPage.totalproductCart();
         console.log(cartquantity);
         const totalremove = 1;
-        await productPage.removeProducts(totalremove);
+        const removed = await productPage.removeProducts(selectproductName, totalremove);
+        await console.log(removed);
+
         const quantity = cartquantity - totalremove;
+
         await console.log(quantity);
+        console.log(await productPage.getProductList());
+
         await productPage.verifyItemQuantityafter(quantity);
+
 
         await productPage.verifyItemQuantity();
         await productPage.addingCart();
