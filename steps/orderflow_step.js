@@ -182,7 +182,7 @@ Given('Login and landing in product detail page', async function () {
     this.cartquantity = await this.productPage.totalproductCart();
     // console.log(this.cartquantity);
     this.totalremove = 1;
-    await this.productPage.removeProducts(this.totalremove);
+    await this.productPage.removeProducts(this.selectproductName, this.totalremove);
 
 
   });
