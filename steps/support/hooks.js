@@ -23,7 +23,6 @@ After(async function () {
     await this.browser.close();
 
     console.log("Execution done");  
-
   })
 
   AfterStep( async function ({result}) {

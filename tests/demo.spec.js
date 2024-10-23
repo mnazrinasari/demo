@@ -87,7 +87,7 @@ test('3 - Complete Order Flow - Single Product', async ({page}) =>
 
     })
     
-test.only('4 - Cart - Multiple Products(Fixed Products)', async ({page}) =>
+test('4 - Cart - Multiple Products(Fixed Products)', async ({page}) =>
     {
     
        
@@ -117,14 +117,15 @@ test.only('4 - Cart - Multiple Products(Fixed Products)', async ({page}) =>
 
         const cartquantity = await productPage.totalproductCart();
         console.log(cartquantity);
-        const totalremove = 1;
+        const totalremove = 2;
         const removed = await productPage.removeProducts(selectproductName, totalremove);
-        await console.log(removed);
+        await console.log(`product removed from Cart: ${removed}`);
 
         const quantity = cartquantity - totalremove;
 
         await console.log(quantity);
-        console.log(await productPage.getProductList());
+        const currentcart = await productPage.getcartProducts();
+        await console.log(`product in current Cart: ${currentcart}`);
 
         await productPage.verifyItemQuantityafter(quantity);
 
