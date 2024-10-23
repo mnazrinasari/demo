@@ -225,7 +225,7 @@ async removeProducts(selectproductName, totalremove)
                 const allProducts = await this.productsname.nth(i).textContent();
                 const matchedProduct = allProducts.trim();
                 if(matchedProduct === produk){
-                    const removed= await this.products.nth(i).locator("div > a > div").textContent();
+                    const removed= await this.products.nth(i).locator("[class='inventory_item_name']").textContent();
                     cartRemoved.push(removed.trim());
                     // console.log(matchedProduct);
                     await this.products.nth(i).locator("button").click();
