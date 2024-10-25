@@ -1,6 +1,5 @@
 const { test, expect } = require('@playwright/test');
 const { POManager } = require('../pages/POManager');
-// const dataSet = JSON.parse(require("../utils/testdata.json"));
 
 test('1 - Login - Valid User', async ({page}) =>
     {   

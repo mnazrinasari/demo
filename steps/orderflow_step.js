@@ -9,8 +9,8 @@ const {chromium} = require('playwright');
 Given('Login and landing in product detail page', async function () {
     this.loginPage = this.pomanager.getLoginPage();
     //go to url
-    const sourceURL = "https://www.saucedemo.com/v1/index.html";
-    await this.loginPage.goTo(sourceURL);  
+    // const sourceURL = "https://www.saucedemo.com/v1/index.html";
+    await this.loginPage.goTo(global.testData.sourceURL);  
     this.emails = "standard_user";
     this.passwords = "secret_sauce";
     await this.loginPage.validLogin(this.emails, this.passwords);

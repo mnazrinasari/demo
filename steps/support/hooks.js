@@ -2,8 +2,13 @@ const {POManager} = require('../../pages/POManager');
 const {Before, After} = require('@cucumber/cucumber');
 const {AfterStep, BeforeStep, Status} = require('@cucumber/cucumber');
 const {chromium} = require('playwright');
+const {environment} = require('../../config.js');
+const testData = require('../../utils/testdata.js');
+let dataset;
 
 Before(async function () {
+  dataset = JSON.parse(JSON.stringify(testData.environments[environment]));
+  global.testData = dataset;
   this.browser = await chromium.launch({
     headless: false,
     args: ["--start-maximized"],
