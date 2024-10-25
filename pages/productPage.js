@@ -57,7 +57,7 @@ async selectProducts(selectproductName)
                 // console.log(await allProducts.trim());
                 //logic to check if product is from the list
                 if(allProducts.trim() === produk){
-                    const added = await this.products.nth(i).locator("div > a > div").textContent();
+                    const added = await this.products.nth(i).locator("[class='inventory_item_name']").textContent();
                     cartAdded.push(added.trim());
                     await this.products.nth(i).locator("button").click();
                     break;
@@ -262,6 +262,14 @@ async getcartProducts(){
     return cartCurrent;
 
 }
+
+async compareProductremoved(beenoriginalcart, beenRemoved, beenaftercart){
+    const result = beenoriginalcart.filter(item => !beenRemoved.includes(item));
+    expect(result).toEqual(beenaftercart);
+    
+    }
+
+}
  
 
 
@@ -280,7 +288,5 @@ async getcartProducts(){
 //     return productText;
 // }
 
-
-}
 
 module.exports = {ProductPage};
