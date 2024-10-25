@@ -181,8 +181,13 @@ Given('Login and landing in product detail page', async function () {
   Then('Remove products from cart', async function () {
     this.cartquantity = await this.productPage.totalproductCart();
     // console.log(this.cartquantity);
+    const originalcart = await this.productPage.getcartProducts();
+    this.beenoriginalcart = [...originalcart]; 
     this.totalremove = 1;
-    await this.productPage.removeProducts(this.selectproductName, this.totalremove);
+    const removed = await this.productPage.removeProducts(this.selectproductName, this.totalremove);
+    this.beenRemoved = [...removed];
+    const aftercart = await this.productPage.getcartProducts();
+    this.beenaftercart = [...aftercart];  
 
 
   });
@@ -194,3 +199,13 @@ Given('Login and landing in product detail page', async function () {
     await this.productPage.verifyItemQuantityafter(quantity);
 
   });
+
+  Then('Verify the name of product removed is correct', async function () {
+    console.log(`product originally in Cart: ${this.beenoriginalcart}`);
+    console.log(`product removed from Cart: ${this.beenRemoved}`);
+    console.log(`product in current Cart: ${this.beenaftercart}`);
+    this.productPage.compareProductremoved(this.beenoriginalcart, this.beenRemoved, this.beenaftercart);
+
+  });
+
+

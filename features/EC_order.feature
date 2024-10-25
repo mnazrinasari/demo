@@ -45,10 +45,11 @@ Scenario: Verify product display according to adding to cart sequence
     Then Navigate checkout and to order review
     And Verify product display order in order review page
 
-    Scenario: Verify product display according to adding to cart sequence
+    Scenario: Verify product count is updated when removed from cart
     Given Login and landing in product detail page
     Then Click add multiple product to cart
     And Remove products from cart
     Then Verify the number of product in cart symbol is correct
+    Then Verify the name of product removed is correct
 
 

@@ -51,7 +51,7 @@ async verifyProductComplete()
 async verifyReferenceNumber()
 {
     const getrefNum = await this.refNumber.textContent();
-    return await getrefNum;
+    return getrefNum;
 }
 
 async orderTotal()
