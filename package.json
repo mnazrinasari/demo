@@ -2,7 +2,10 @@
   "name": "demo1",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test:staging": "TEST_ENV=staging npx cucumber-js",
+    "test:production": "TEST_ENV=production npx cucumber-js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
