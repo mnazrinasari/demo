@@ -7,16 +7,18 @@ const {chromium} = require('playwright');
 
 
 Given('User on lagin page enters a valid username and password', async function () {
-  this.loginPage = this.pomanager.getLoginPage();
+  // this.loginPage = this.pomanager.getLoginPage();
   //go to url
-  const sourceURL = "https://www.saucedemo.com/v1/index.html";
-  await this.loginPage.goTo(sourceURL);  
-  this.emails = "standard_user";
-  this.passwords = "secret_sauce";
+  // const sourceURL = "https://www.saucedemo.com/v1/index.html"; 
+  // this.emails = "standard_user";
+  // this.passwords = "secret_sauce";
+  const username = global.testData.username;
+  const password = global.testData.password;
+  await this.loginPage.enterLogin(username, password);
   });
 
 When('User click the login button', async function () {
-  await this.loginPage.validLogin(this.emails, this.passwords);
+  await this.loginPage.proceedLogin();
 });
 
 Then('User is logged in', async function () {
@@ -25,8 +27,13 @@ Then('User is logged in', async function () {
 
 
 Given('User on login page enters a locked username and password', async function () {
-  this.emails = "locked_out_user";
-  this.passwords = "secret_sauce";
+  // this.emails = "locked_out_user";
+  // this.passwords = "secret_sauce";
+  const username = global.testData.locked_username;
+  const password = global.testData.locked_password;
+  await this.loginPage.enterLogin(username, password);
+
+  
 });
 
 

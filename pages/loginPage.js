@@ -17,10 +17,15 @@ async goTo(sourceURL)
 
 }
 
-async validLogin(usernames, passwords)
+async enterLogin(username, password)
 {
-    await this.username.fill(usernames);
-    await this.password.fill(passwords);
+    await this.username.fill(username);
+    await this.password.fill(password);
+
+}
+
+async proceedLogin()
+{
     await this.loginbutton.click();
     await this.page.waitForLoadState('networkidle');
 }

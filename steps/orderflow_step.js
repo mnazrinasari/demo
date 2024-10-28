@@ -10,16 +10,17 @@ Given('Login and landing in product detail page', async function () {
     this.loginPage = this.pomanager.getLoginPage();
     //go to url
     // const sourceURL = "https://www.saucedemo.com/v1/index.html";
-    await this.loginPage.goTo(global.testData.sourceURL);  
-    this.emails = "standard_user";
-    this.passwords = "secret_sauce";
-    await this.loginPage.validLogin(this.emails, this.passwords);
+    // await this.loginPage.goTo(global.testData.sourceURL);  
+    // this.emails = "standard_user";
+    // this.passwords = "secret_sauce";
+    await this.loginPage.enterLogin(global.testData.username, global.testData.password);
+    await this.loginPage.proceedLogin();
     await this.loginPage.loginSuceed();
     });
 
   Then('Click add single product to cart', async function () {
     this.productPage = this.pomanager.getProductPage();
-    this.selectproductName = ["Sauce Labs Bolt T-Shirt"];
+    this.selectproductName = global.testData.singleProduct;
   
     await this.productPage.selectProducts(this.selectproductName);
 
@@ -51,9 +52,9 @@ Given('Login and landing in product detail page', async function () {
 
   Then('Enter the checkout details', async function () {
     this.checkoutPage = this.pomanager.getCheckoutPage();
-    const firstName = "Foo";
-    const lastName = "Bar"
-    const postalCode = "11111"
+    const firstName = global.testData.firstName;
+    const lastName = global.testData.lastName;
+    const postalCode = global.testData.postalCode;
     await this.checkoutPage.completeShipping(firstName, lastName, postalCode);
   });
 
@@ -90,10 +91,7 @@ Given('Login and landing in product detail page', async function () {
 
   Then('Click add multiple product to cart', async function () {
     this.productPage = this.pomanager.getProductPage();
-    this.selectproductName =  ["Sauce Labs Backpack",
-      "Sauce Labs Bike Light",
-      "Sauce Labs Onesie"
-  ];
+    this.selectproductName =  global.testData.multipleProduct;
     await this.productPage.selectProducts(this.selectproductName);
 
   });
@@ -135,14 +133,10 @@ Given('Login and landing in product detail page', async function () {
 
   });
 
-  
 
   Then('Click add multiple product to cart by random sequence', async function () {
     this.productPage = this.pomanager.getProductPage();
-    this.selectproductName =  ["Test.allTheThings() T-Shirt (Red)",
-      "Sauce Labs Fleece Jacket",
-      "Sauce Labs Onesie"
-  ];
+    this.selectproductName =  global.testData.randommultipleProduct;
     await this.productPage.selectProducts(this.selectproductName);
     await this.productPage.addingCart();
 
@@ -183,7 +177,7 @@ Given('Login and landing in product detail page', async function () {
     // console.log(this.cartquantity);
     const originalcart = await this.productPage.getcartProducts();
     this.beenoriginalcart = [...originalcart]; 
-    this.totalremove = 1;
+    this.totalremove = global.testData.removeQuantity;
     const removed = await this.productPage.removeProducts(this.selectproductName, this.totalremove);
     this.beenRemoved = [...removed];
     const aftercart = await this.productPage.getcartProducts();
