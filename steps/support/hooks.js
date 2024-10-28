@@ -1,9 +1,13 @@
 const {POManager} = require('../../pages/POManager');
-const {Before, After} = require('@cucumber/cucumber');
-const {AfterStep, BeforeStep, Status} = require('@cucumber/cucumber');
+// const {Before, After} = require('@cucumber/cucumber');
+const {AfterStep, BeforeStep} = require('@cucumber/cucumber');
 const {chromium} = require('playwright');
 const {environment} = require('../../config.js');
 const testData = require('../../utils/testdata.js');
+const { Before, After, Status } = require('@cucumber/cucumber');
+const { allure } = require('allure-cucumberjs');
+
+
 let dataset;
 
 Before(async function () {
@@ -26,7 +30,11 @@ After(async function () {
     await this.context.close();
     await this.browser.close();
 
-    console.log("Execution done");  
+    console.log("Execution done"); 
+    if (scenario.result.status === Status.FAILED) {
+      const screenshot = await page.screenshot();
+      allure.attachment('Screenshot', screenshot, 'image/png');
+    } 
   })
 
   AfterStep( async function ({result}) {
