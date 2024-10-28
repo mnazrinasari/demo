@@ -9,9 +9,10 @@ test('1 - Login - Valid User', async ({page}) =>
         const sourceURL = "https://www.saucedemo.com/v1/index.html";
         await loginPage.goTo(sourceURL);        
         //login
-        const emails = "standard_user";
-        const passwords = "secret_sauce";
-        await loginPage.validLogin(emails, passwords);
+        const username = "standard_user";
+        const password = "secret_sauce";
+        await loginPage.enterLogin(username, password);
+        await loginPage.proceedLogin();
         await loginPage.loginSuceed();
     })
 
@@ -23,10 +24,11 @@ test('2 - Login - Locked out user', async ({page}) =>
         const sourceURL = "https://www.saucedemo.com/v1/index.html"
         await loginPage.goTo(sourceURL);
         //login
-        const emails = "locked_out_user";
-        const passwords = "secret_sauce";
-        await loginPage.validLogin(emails, passwords);
-        //verify error for locked out user
+        const username = "locked_out_user";
+        const password = "secret_sauce";
+        await loginPage.enterLogin(username, password);
+        await loginPage.proceedLogin();
+                //verify error for locked out user
         await loginPage.loginNotSuceed;
         console.log(await loginPage.loginNotSuceed());
     
@@ -42,10 +44,10 @@ test('3 - Complete Order Flow - Single Product', async ({page}) =>
     const sourceURL = "https://www.saucedemo.com/v1/index.html";
     await loginPage.goTo(sourceURL);
     //login
-    const emails = "standard_user";
-    const passwords = "secret_sauce";
-    await loginPage.validLogin(emails, passwords);
-
+    const username = "standard_user";
+    const password = "secret_sauce";
+    await loginPage.enterLogin(username, password);
+    await loginPage.proceedLogin();
     //selecting product in PDP
     const productPage = pomanager.getProductPage();
     const selectproductName = ["Sauce Labs Bolt T-Shirt"];
@@ -99,7 +101,8 @@ test('4 - Cart - Multiple Products(Fixed Products)', async ({page}) =>
         await loginPage.goTo(sourceURL);
         const username = "standard_user";
         const password = "secret_sauce";
-        await loginPage.validLogin(username, password);
+        await loginPage.enterLogin(username, password);
+        await loginPage.proceedLogin();
         //login
         await loginPage.loginSuceed(); 
         //selecting product
@@ -176,7 +179,8 @@ test('5 - Cart - Total Sum of the Order in Cart)', async ({page}) =>
         await loginPage.goTo(sourceURL);
         const username = "standard_user";
         const password = "secret_sauce";
-        await loginPage.validLogin(username, password);
+        await loginPage.enterLogin(username, password);
+        await loginPage.proceedLogin();
         //login
         await loginPage.loginSuceed(); 
         //selecting product
