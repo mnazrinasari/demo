@@ -1,9 +1,12 @@
 const {POManager} = require('../../pages/POManager');
-const {Before, After} = require('@cucumber/cucumber');
-const {AfterStep, BeforeStep, Status} = require('@cucumber/cucumber');
+// const {Before, After} = require('@cucumber/cucumber');
+const {AfterStep, BeforeStep} = require('@cucumber/cucumber');
 const {chromium} = require('playwright');
 const {environment} = require('../../config.js');
 const testData = require('../../utils/testdata.js');
+const { Before, After, Status } = require('@cucumber/cucumber');
+
+
 let dataset;
 
 Before(async function () {
@@ -25,8 +28,6 @@ After(async function () {
     await this.page.close();
     await this.context.close();
     await this.browser.close();
-
-    console.log("Execution done");  
   })
 
   AfterStep( async function ({result}) {

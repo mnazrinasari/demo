@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test:staging": "TEST_ENV=staging npx cucumber-js",
-    "test:production": "TEST_ENV=production npx cucumber-js"
+    "test:production": "TEST_ENV=production npx cucumber-js",
+    "test": "npx cucumber-js --format html:report.html && start report.html"
   },
   "keywords": [],
   "author": "",

@@ -1,0 +1,1077 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "login;login-as-a-valid-user",
+        "keyword": "Scenario",
+        "line": 3,
+        "name": "Login as a valid user",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 333100
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1362559900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "User on lagin page enters a valid username and password",
+            "match": {
+              "location": "steps\\login_step.js:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 70532298
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 5,
+            "name": "User click the login button",
+            "match": {
+              "location": "steps\\login_step.js:20"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1033167900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 6,
+            "name": "User is logged in",
+            "match": {
+              "location": "steps\\login_step.js:24"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1343198
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "failed",
+              "duration": 379631499,
+              "error_message": "ReferenceError: scenario is not defined\n    at World.<anonymous> (C:\\Automation Project\\Demo1\\steps\\support\\hooks.js:34:5)"
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "login;login-as-a-locked-user",
+        "keyword": "Scenario",
+        "line": 8,
+        "name": "Login as a locked user",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 93700
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1488470299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 9,
+            "name": "User on login page enters a locked username and password",
+            "match": {
+              "location": "steps\\login_step.js:29"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 59884399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 10,
+            "name": "User click the login button",
+            "match": {
+              "location": "steps\\login_step.js:20"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 396552499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 11,
+            "name": "User recieve error message",
+            "match": {
+              "location": "steps\\login_step.js:40"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 11450900
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "failed",
+              "duration": 292688100,
+              "error_message": "ReferenceError: scenario is not defined\n    at World.<anonymous> (C:\\Automation Project\\Demo1\\steps\\support\\hooks.js:34:5)"
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "login",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Login",
+    "tags": [],
+    "uri": "features\\EC_login.feature"
+  },
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "complete-order-flow;complete-order-flow-with-a-single-product",
+        "keyword": "Scenario",
+        "line": 3,
+        "name": "Complete order flow with a single product",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 52700
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1217504399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "Login and landing in product detail page",
+            "match": {
+              "location": "steps\\orderflow_step.js:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 985918800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 5,
+            "name": "Click add single product to cart",
+            "match": {
+              "location": "steps\\orderflow_step.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 40489700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 6,
+            "name": "Verify product is added to cart",
+            "match": {
+              "location": "steps\\orderflow_step.js:29"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3312200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 7,
+            "name": "Click view cart",
+            "match": {
+              "location": "steps\\orderflow_step.js:34"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 90962098
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "Verify product is in the cart page",
+            "match": {
+              "location": "steps\\orderflow_step.js:39"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 27520099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 9,
+            "name": "Click checkout",
+            "match": {
+              "location": "steps\\orderflow_step.js:47"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 91611599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "Enter the checkout details",
+            "match": {
+              "location": "steps\\orderflow_step.js:53"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 41536298
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 11,
+            "name": "Click continue to order",
+            "match": {
+              "location": "steps\\orderflow_step.js:62"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 71210899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 12,
+            "name": "Verify products is in the order review page",
+            "match": {
+              "location": "steps\\orderflow_step.js:66"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 24013899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 13,
+            "name": "Verify Order ID",
+            "match": {
+              "location": "steps\\orderflow_step.js:75"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1951099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "Click Finish",
+            "match": {
+              "location": "steps\\orderflow_step.js:81"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 58741698
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 15,
+            "name": "Verify thank you page is displayed",
+            "match": {
+              "location": "steps\\orderflow_step.js:86"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 15416998
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "failed",
+              "duration": 327959000,
+              "error_message": "ReferenceError: scenario is not defined\n    at World.<anonymous> (C:\\Automation Project\\Demo1\\steps\\support\\hooks.js:34:5)"
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "complete-order-flow;complete-order-flow-with-multiple-product",
+        "keyword": "Scenario",
+        "line": 17,
+        "name": "Complete order flow with multiple product",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 54399
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1358625100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 18,
+            "name": "Login and landing in product detail page",
+            "match": {
+              "location": "steps\\orderflow_step.js:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1066523400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 19,
+            "name": "Click add multiple product to cart",
+            "match": {
+              "location": "steps\\orderflow_step.js:92"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 152484998
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 20,
+            "name": "Verify product is added to cart",
+            "match": {
+              "location": "steps\\orderflow_step.js:29"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3856898
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 21,
+            "name": "Click view cart",
+            "match": {
+              "location": "steps\\orderflow_step.js:34"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 67713399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 22,
+            "name": "Verify product is in the cart page",
+            "match": {
+              "location": "steps\\orderflow_step.js:39"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 32889299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 23,
+            "name": "Click checkout",
+            "match": {
+              "location": "steps\\orderflow_step.js:47"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 91779699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 24,
+            "name": "Enter the checkout details",
+            "match": {
+              "location": "steps\\orderflow_step.js:53"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 48992199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 25,
+            "name": "Click continue to order",
+            "match": {
+              "location": "steps\\orderflow_step.js:62"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 65389100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 26,
+            "name": "Verify products is in the order review page",
+            "match": {
+              "location": "steps\\orderflow_step.js:66"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 28117800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 27,
+            "name": "Verify Order ID",
+            "match": {
+              "location": "steps\\orderflow_step.js:75"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2798999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 28,
+            "name": "Click Finish",
+            "match": {
+              "location": "steps\\orderflow_step.js:81"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 52066999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 29,
+            "name": "Verify thank you page is displayed",
+            "match": {
+              "location": "steps\\orderflow_step.js:86"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 14999499
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "failed",
+              "duration": 320785499,
+              "error_message": "ReferenceError: scenario is not defined\n    at World.<anonymous> (C:\\Automation Project\\Demo1\\steps\\support\\hooks.js:34:5)"
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "complete-order-flow;verify-order-amount-in-complete-order-flow",
+        "keyword": "Scenario",
+        "line": 31,
+        "name": "Verify Order Amount in Complete order flow",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 33799
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1311154800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 32,
+            "name": "Login and landing in product detail page",
+            "match": {
+              "location": "steps\\orderflow_step.js:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1030610399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 33,
+            "name": "Click add multiple product to cart",
+            "match": {
+              "location": "steps\\orderflow_step.js:92"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 144842998
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 34,
+            "name": "Verify total amount of product added to cart",
+            "match": {
+              "location": "steps\\orderflow_step.js:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 15772500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 35,
+            "name": "Click view cart",
+            "match": {
+              "location": "steps\\orderflow_step.js:34"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 71525400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 36,
+            "name": "Verify Cart Amount",
+            "match": {
+              "location": "steps\\orderflow_step.js:106"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 18760099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "Navigate to checkout",
+            "match": {
+              "location": "steps\\orderflow_step.js:122"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 71739199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 38,
+            "name": "Navigate to order review",
+            "match": {
+              "location": "steps\\orderflow_step.js:126"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 116200900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 39,
+            "name": "Verify total amount in order review page",
+            "match": {
+              "location": "steps\\orderflow_step.js:114"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 18021799
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "failed",
+              "duration": 326882299,
+              "error_message": "ReferenceError: scenario is not defined\n    at World.<anonymous> (C:\\Automation Project\\Demo1\\steps\\support\\hooks.js:34:5)"
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "complete-order-flow;verify-product-display-according-to-adding-to-cart-sequence",
+        "keyword": "Scenario",
+        "line": 41,
+        "name": "Verify product display according to adding to cart sequence",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 32499
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1313457300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 42,
+            "name": "Login and landing in product detail page",
+            "match": {
+              "location": "steps\\orderflow_step.js:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1011567000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 43,
+            "name": "Click add multiple product to cart by random sequence",
+            "match": {
+              "location": "steps\\orderflow_step.js:137"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 203683299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 44,
+            "name": "Verify product display order in View Cart",
+            "match": {
+              "location": "steps\\orderflow_step.js:146"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 18857198
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 45,
+            "name": "Navigate checkout and to order review",
+            "match": {
+              "location": "steps\\orderflow_step.js:155"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 169880899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 46,
+            "name": "Verify product display order in order review page",
+            "match": {
+              "location": "steps\\orderflow_step.js:165"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 24926100
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "failed",
+              "duration": 354954000,
+              "error_message": "ReferenceError: scenario is not defined\n    at World.<anonymous> (C:\\Automation Project\\Demo1\\steps\\support\\hooks.js:34:5)"
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "complete-order-flow;verify-product-count-is-updated-when-removed-from-cart",
+        "keyword": "Scenario",
+        "line": 48,
+        "name": "Verify product count is updated when removed from cart",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 34399
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1329619499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 49,
+            "name": "Login and landing in product detail page",
+            "match": {
+              "location": "steps\\orderflow_step.js:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1079287398
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 50,
+            "name": "Click add multiple product to cart",
+            "match": {
+              "location": "steps\\orderflow_step.js:92"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 139545399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 51,
+            "name": "Remove products from cart",
+            "match": {
+              "location": "steps\\orderflow_step.js:175"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 114453398
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 52,
+            "name": "Verify the number of product in cart symbol is correct",
+            "match": {
+              "location": "steps\\orderflow_step.js:190"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1665399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 53,
+            "name": "Verify the name of product removed is correct",
+            "match": {
+              "location": "steps\\orderflow_step.js:197"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1265500
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "failed",
+              "duration": 341986399,
+              "error_message": "ReferenceError: scenario is not defined\n    at World.<anonymous> (C:\\Automation Project\\Demo1\\steps\\support\\hooks.js:34:5)"
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "complete-order-flow",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Complete Order Flow",
+    "tags": [],
+    "uri": "features\\EC_order.feature"
+  },
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "product-sorting-in-pdp-grid;verify-product-grid-sorting-options",
+        "keyword": "Scenario",
+        "line": 3,
+        "name": "Verify Product grid sorting options",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 35599
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1370907200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "Login and landing in product detail page",
+            "match": {
+              "location": "steps\\orderflow_step.js:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1071766699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 5,
+            "name": "Verify product grid is sorted alphabetically ascending by default",
+            "match": {
+              "location": "steps\\sorting_step.js:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 36017400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 6,
+            "name": "Sort product grid to alphabetically descending",
+            "match": {
+              "location": "steps\\sorting_step.js:19"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 19839999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 7,
+            "name": "Verify product grid is sorted alphabetically descending",
+            "match": {
+              "location": "steps\\sorting_step.js:25"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 22717799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 8,
+            "name": "Sort product grid to numerically ascending",
+            "match": {
+              "location": "steps\\sorting_step.js:33"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 23817399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "Verify product grid is sorted numerically ascending",
+            "match": {
+              "location": "steps\\sorting_step.js:39"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 19598398
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 10,
+            "name": "Sort product grid to numerically descending",
+            "match": {
+              "location": "steps\\sorting_step.js:47"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 25103199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 11,
+            "name": "Verify product grid is sorted numerically descending",
+            "match": {
+              "location": "steps\\sorting_step.js:53"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 22454899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 12,
+            "name": "Sort product grid to alphabetically ascending",
+            "match": {
+              "location": "steps\\sorting_step.js:61"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 26028399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 13,
+            "name": "Verify product grid is sorted alphabetically ascending",
+            "match": {
+              "location": "steps\\sorting_step.js:67"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 22267498
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "failed",
+              "duration": 353096600,
+              "error_message": "ReferenceError: scenario is not defined\n    at World.<anonymous> (C:\\Automation Project\\Demo1\\steps\\support\\hooks.js:34:5)"
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "product-sorting-in-pdp-grid",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Product sorting in PDP grid",
+    "tags": [],
+    "uri": "features\\EC_sorting.feature"
+  }
+]
